@@ -29,7 +29,7 @@
           </tr>
           <tr>
             <td colspan="3"></td>
-            <td class="total">Total: ${{ totalPrice.toFixed(2) }}</td>
+            <td class="total">Total: ${{ totalPrice }}</td>
           </tr>
         </tbody>
       </table>
