@@ -1,29 +1,27 @@
 <template>
   <section class="restaurantinfo">
-    <div v-for="store in foodData" :key="store.id">
+    <div v-for="store in dataSource" :key="store.id">
       <h2>{{ store.name }}</h2>
       <p>Delivery Time {{ store.deliveryTime }}</p>
       <p>Rating {{ store.rating }}</p>
       <p v-if="store.freeDelivery" class="label">
-        <span>Free delivery!</span>
+        <span>Free Delivery</span>
       </p>
       <div class="row">
         <div
           v-for="menuitem in store.menu"
-          class="items"
           :key="menuitem.id"
-          :style="`background: url(${menuitem.img}) no-repeat center center`"
+          :style="`background: url(/${menuitem.img}) no-repeat center center`"
+          class="items"
         >
           <div class="iteminfo">
             <div>
-              <h4>
-                {{ menuitem.item }}
-              </h4>
-              <p>
-                {{ priceFormatting(menuitem.price) }}
-              </p>
-              <button class="ghost">View Item ></button>
+              <h4>{{ menuitem.item }}</h4>
+              <p>{{ priceFormatting(menuitem.price) }}</p>
             </div>
+            <nuxt-link :to="`items/${menuitem.id}`">
+              <button class="ghost">View Item ></button>
+            </nuxt-link>
           </div>
         </div>
       </div>
@@ -32,15 +30,15 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
-
 export default {
-  computed: {
-    ...mapState(["foodData"]),
+  props: {
+    dataSource: {
+      type: [Array, Object],
+    },
   },
   methods: {
-    priceFormatting(price) {
-      return `$ ${price.toFixed(2)}`;
+    priceFormatting(item) {
+      return "$" + item.toFixed(2);
     },
   },
 };
